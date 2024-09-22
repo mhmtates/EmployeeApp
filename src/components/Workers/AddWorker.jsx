@@ -1,23 +1,41 @@
+import { useState } from "react";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
-import { useState } from "react";
 
-const AddWorker = () => {
-  
-   const [workerName, setWorkerName] = useState("");
-   const [salary, setSalary] = useState("");
+const AddWorker = (props) => {
 
-   const workerNameChangeHandler = (e) => {
-     setWorkerName(e.target.value);
-   }
-   const salaryChangeHandler = (e) => {
-     setSalary(e.target.value);
+  const [workerName, setWorkerName] = useState("");
+  const [salary, setSalary] = useState("");
+
+  const minSalary = 17002;
+
+  const workerNameChangeHandler = (e) => {
+    setWorkerName(e.target.value);
+  }
+  const salaryChangeHandler = (e) => {
+    setSalary(e.target.value);
   }
   const addWorkerHandler = (e) => {
-      e.preventDefault();
-      setWorkerName("");
-      setSalary("");
-      console.log(workerName,salary);
+    e.preventDefault();
+    if (workerName.trim().length === 0 || salary.trim().length === 0) {
+      return;
+    }
+
+    if (+salary <= minSalary) {
+      return;
+    }
+    setWorkerName("");
+    setSalary("");
+    props.setWorkers((prevState) =>[
+      {
+        id: Math.floor(Math.random() * 100000),
+        name: workerName,
+        salary: salary
+      },
+
+      ...prevState,
+    ])
+    console.log(workerName.trim(), salary.trim());
   }
 
   return (

@@ -2,13 +2,25 @@ import Card from "../UI/Card"
 
 
 const GetAllEmployees = (props) => {
+    
     const{employees} = props;
    
+    if(employees.length < 1)
+    {
+        return;
+    }
+
+    const deleteEmployee = (id) =>{
+        props.setEmployees(
+            employees.filter((item) => item.id !== id)
+        )
+    }
+   
     return (
-        <Card className="mt-10" >
+        <Card className="mt-10 justify-start" >
             <ul>
-                <li className="flex gap-x-12 justify-center">
-                    <span className="font-bold">Tam İsmi</span>
+                <li className="flex gap-x-12 ">
+                    <span className="font-bold ml-2">Tam İsmi</span>
                     <span className="font-bold">Doğum Tarihi</span>
                     <span className="font-bold">Şirket</span>
                     <span className="font-bold">Departman</span>
@@ -17,8 +29,10 @@ const GetAllEmployees = (props) => {
                    
                 </li>
                 {employees.map((employee) => (
-                    <li className ="flex cursor-pointer hover:shadow-xl p-2 gap-x-4 justify-center transition-shadow" key={employee.id}>
-                        <span className="ml-0">{employee.fullName}</span>
+                    <li className ="flex cursor-pointer hover:shadow-xl p-2 gap-x-6  transition-shadow "
+                    key={employee.id}
+                    onClick={() => deleteEmployee(employee.id)}>
+                        <span>{employee.fullName}</span>
                         <span className="text-slate-700 font-medium">
                             {employee.birthDate}
                         </span>

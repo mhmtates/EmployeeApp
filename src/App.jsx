@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <h1 className=" text-white text-center mt-6 text-3xl">Çalışan Bilgileri</h1>
        <AddEmployee setEmployees={setEmployees}/>
-       <GetAllEmployees employees={employees}/>
+       <GetAllEmployees employees={employees} setEmployees={setEmployees}/>
     </div>
   );
 }
